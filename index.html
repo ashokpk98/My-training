@@ -6,461 +6,234 @@
     <title>Ashok P K - Strength & Conditioning Specialist</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* This style block now only contains standard CSS that browsers can understand directly. */
+        :root {
+            --glow-color: hsl(190, 80%, 50%);
+        }
         body {
             font-family: 'Inter', sans-serif;
-            -webkit-print-color-adjust: exact; /* Ensures background colors are printed */
+            -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
-            background-color: #121212; /* Deep near-black background */
-            color: #E0E0E0; /* Light text for contrast */
-            /* Dark Subtle Dots/Circles for body */
-            background-image: url('data:image/svg+xml,%3Csvg width=\'10\' height=\'10\' viewBox=\'0 0 10 10\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Ccircle cx=\'5\' cy=\'5\' r=\'1\' fill=\'%23333333\' fill-opacity=\'0.08\'/%3E%3C/svg%3E');
-            background-repeat: repeat;
+            background-color: #020617; /* slate-950 */
+            /* Subtle geometric pattern for texture */
+            background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%231E293B" fill-opacity="0.4"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
         }
-        /* Custom pattern for the main program section */
-        .program-section-bg {
-            /* Dark Subtle Dots/Circles for program section */
-            background-image: url('data:image/svg+xml,%3Csvg width=\'10\' height=\'10\' viewBox=\'0 0 10 10\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Ccircle cx=\'5\' cy=\'5\' r=\'1\' fill=\'%23555555\' fill-opacity=\'0.1\'/%3E%3C/svg%3E');
-            background-size: 50px 50px; /* Adjust pattern size */
-            background-position: center center;
-            background-blend-mode: multiply; /* Blend with gradient */
+        
+        /* Scroll-triggered animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
         }
-
-        /* Custom styles for printing */
-        @media print {
-            body {
-                margin: 0;
-                padding: 0;
-            }
-            .page-break {
-                page-break-before: always;
-            }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
-        /* General card styling */
-        .card {
-            background-color: #262626; /* Dark grey for cards */
-            border-radius: 0.75rem; /* Large rounded corners */
-            box-shadow: 0 10px 20px -3px rgba(0, 0, 0, 0.3), 0 6px 12px -2px rgba(0, 0, 0, 0.2); /* Stronger dark shadow */
-            padding: 2.2rem; /* Slightly more padding */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            color: #E0E0E0; /* Light text on dark cards */
-        }
-        .card:hover {
-            transform: translateY(-8px) scale(1.005); /* More pronounced lift and subtle scale */
-            box-shadow: 0 25px 35px -5px rgba(0, 0, 0, 0.4), 0 15px 20px -5px rgba(0, 0, 0, 0.3);
+        
+        /* Glowing divider */
+        .glow-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--glow-color), transparent);
+            opacity: 0.2;
         }
 
-        /* Table specific styles for responsiveness and appearance */
-        .comparison-table-wrapper {
-            overflow-x: auto; /* Ensures horizontal scroll */
-            -webkit-overflow-scrolling: touch; /* Smooth scrolling for touch devices */
-            border-radius: 0.75rem; /* Match card rounded corners */
-            box-shadow: 0 10px 20px -3px rgba(0, 0, 0, 0.3), 0 6px 12px -2px rgba(0, 0, 0, 0.2); /* Stronger dark shadow */
-            width: 100%; /* Ensure it takes full width of its parent */
-            display: block; /* Ensure it behaves as a block element */
+        /* Pricing Card Specific Styles */
+        .pricing-card {
+            @apply bg-slate-900/50 border border-slate-800 rounded-2xl p-8 flex flex-col text-center items-center transition-all duration-300 ease-in-out;
         }
-        .comparison-table {
-            width: 100%; /* Ensures it fills the wrapper */
-            border-collapse: separate; /* Allows rounded corners on cells/rows */
-            border-spacing: 0;
-            min-width: 800px; /* Minimum width for the table to force scroll */
+        .pricing-card.highlight {
+            @apply bg-blue-900/30 border-blue-700 pt-12 pb-8;
         }
-        .comparison-table th, .comparison-table td {
-            padding: 1.6rem 1rem; /* Increased vertical padding */
-            text-align: center;
-            vertical-align: middle;
-            border-bottom: 1px solid #333333; /* Darker border for dark mode */
-            color: #E0E0E0; /* Light text */
-        }
-        .comparison-table th:first-child, .comparison-table td:first-child {
-            text-align: left;
-            font-weight: 600; /* Bolder for feature names */
-            background-color: #1a1a1a; /* Even darker for sticky column */
-            position: sticky;
-            left: 0;
-            z-index: 20; /* Keep feature column visible */
-            border-right: 1px solid #333333; /* Right border for feature column */
-        }
-        .comparison-table thead th {
-            background-color: #6B46C1; /* Deep Violet for headers */
-            color: white;
-            padding-top: 2rem; /* More padding in header */
-            padding-bottom: 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.4); /* Subtle text shadow for pop */
-        }
-        .comparison-table thead th:first-child {
-            background-color: #4A2B8B; /* Darker Violet for corner */
-            z-index: 30;
-        }
-        /* Style for the "Most Popular" column header and cells */
-        .most-popular-header {
-            background-color: #007B8A; /* Deep Teal for popular header */
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4); /* Stronger shadow for pop-out effect */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding-top: 1.2rem; /* Adjusted padding */
-            padding-bottom: 1.2rem;
-            position: relative;
-            overflow: hidden;
-        }
-        .most-popular-badge {
-            position: static;
-            margin-top: 0.6rem; /* More margin */
-            background-color: #B87333; /* Bronze */
-            color: white; /* White text for contrast */
-            font-weight: bold;
-            font-size: 0.9rem; /* Slightly larger badge text */
-            padding: 0.45rem 1.1rem; /* More padding */
-            border-radius: 9999px;
-            box-shadow: 0 5px 12px rgba(0,0,0,0.4); /* More prominent shadow */
-            white-space: nowrap;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-        .most-popular-col {
-            background-color: #333333; /* Slightly lighter dark background for the entire column */
-            font-weight: 500;
-        }
-        /* Add a subtle triangular shape to the popular header */
-        .most-popular-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.1) 100%); /* Subtle overlay */
-            pointer-events: none;
-        }
-
-        .price-row td {
-            font-size: 1.9rem; /* Even larger price text */
-            font-weight: bold;
-            padding-top: 1.6rem;
-            padding-bottom: 1.6rem;
-            background-color: #2a2a2a; /* Darker background for price row */
-            color: #B87333; /* Bronze price text */
-        }
-        .price-row td:first-child {
-            background-color: #1a1a1a; /* Even darker for sticky price column */
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #A0AEC0; /* Cool Grey for feature name */
-        }
-        .button-row td {
-            padding-top: 1.6rem;
-            padding-bottom: 2.8rem; /* More space below buttons */
-            background-color: #2a2a2a; /* Darker background for button row */
-        }
-        .button-row td:first-child {
-            background-color: #1a1a1a; /* Even darker for sticky button column */
-        }
-        .button-primary {
-            background-color: #6B46C1; /* Deep Violet for primary action */
-            color: white;
-            font-weight: 600;
-            padding: 1rem 2rem; /* Larger padding for button */
-            border-radius: 0.75rem; /* More rounded */
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.4); /* Stronger shadow */
-            display: inline-block;
-        }
-        .button-primary:hover {
-            background-color: #553A9B; /* Darker violet on hover */
-            transform: translateY(-4px) scale(1.03); /* More noticeable lift and scale */
-            box-shadow: 0 8px 16px rgba(0,0,0,0.6);
-        }
-        .button-secondary {
-            background-color: #007B8A; /* Deep Teal for other buttons */
-            color: white;
-            font-weight: 600;
-            padding: 1rem 2rem;
-            border-radius: 0.75rem;
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.4);
-            display: inline-block;
-        }
-        .button-secondary:hover {
-            background-color: #00606B; /* Darker teal on hover */
-            transform: translateY(-4px) scale(1.03);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.6);
-        }
-
-        /* Specific styles for check and cross icons to ensure strong colors */
-        .check-icon {
-            color: #38A169; /* A vibrant green that pops on dark */
-            font-size: 1.4em; /* Larger icon */
-        }
-        .cross-icon {
-            color: #EF4444; /* A vibrant red that pops on dark */
-            font-size: 1.4em; /* Larger icon */
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .comparison-table th, .comparison-table td {
-                padding: 1.2rem 0.6rem;
-            }
-            .comparison-table {
-                min-width: 650px; /* Adjust min-width for better mobile scroll */
-            }
-            .button-primary, .button-secondary {
-                padding: 0.7rem 1.4rem;
-                font-size: 1rem;
-            }
-            .header h1 {
-                font-size: 3rem;
-            }
-            .header p {
-                font-size: 1.1rem;
-            }
-            .text-xl {
-                font-size: 1.15rem;
-            }
-            .text-lg {
-                font-size: 1rem;
-            }
+        .pricing-icon {
+            @apply w-16 h-16 rounded-full border-2 flex items-center justify-center text-2xl mb-6;
         }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-200 p-6 md:p-10 lg:p-12">
-    <div class="max-w-4xl mx-auto bg-gray-800 rounded-lg shadow-2xl">
-        <!-- Header Section -->
-        <header class="bg-gradient-to-br from-gray-900 to-gray-700 text-white p-8 md:p-10 rounded-t-lg relative overflow-hidden">
-            <div class="absolute inset-0 bg-pattern opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg width=\'10\' height=\'10\' viewBox=\'0 0 10 10\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.2\' fill-rule=\'evenodd\'%3E%3Ccircle cx=\'3\' cy=\'3\' r=\'3\'/%3E%3C/g%3E%3C/svg%3E');"></div>
-            <div class="relative z-10 flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-                <div class="text-center md:text-left flex items-center justify-center md:justify-start">
-                    <h1 class="text-5xl font-extrabold mb-1 drop-shadow-lg">ASHOK P K</h1>
-                    <span class="text-2xl font-bold ml-3 text-violet-400 drop-shadow-md">CSCS</span>
-                </div>
-                <div class="text-center md:text-right text-sm md:text-base bg-white bg-opacity-10 p-4 rounded-lg shadow-inner">
-                    <p class="mb-1">📧 <a href="mailto:ashokpk2255@gmail.com" class="text-gray-300 hover:text-white underline">ashokpk2255@gmail.com</a></p>
-                    <p class="mb-1">📞 +919745907012</p>
-                    <p>📍 Calicut, India</p>
-                    <a href="https://www.linkedin.com/in/ashok-p-k-3a987731a/" target="_blank" class="text-gray-300 hover:text-white underline font-semibold">View LinkedIn Profile</a>
-                </div>
-            </div>
-        </header>
+<body class="bg-slate-950 text-slate-300 antialiased">
 
-        <!-- Merged Introduction Section (Optimized) -->
-        <section class="card m-6 mb-0">
-            <h2 class="text-3xl font-bold text-violet-400 mb-4 text-center">About My Expertise & Mission</h2>
-            <p class="text-gray-300 leading-relaxed text-lg text-center">
-                As a **Certified Strength and Conditioning Specialist (CSCS)** with a formal degree in Exercise Science, I bridge scientific rigor with real-world coaching. My mission is to empower you to redefine your fitness, whether you're an athlete chasing peak performance or embarking on a healthier lifestyle journey. I specialize in crafting bespoke online programs, integrating cutting-edge strength and conditioning, sports-specific performance, and evidence-based nutrition. With credentials like the CSCS, World Athletics CECS-Level I, and a Diploma in Personal Training, I'm committed to delivering expert, results-driven coaching right to your home, helping you build lasting strength, health, and a true love for movement.
-            </p>
-        </section>
+    <div class="relative overflow-hidden">
+        <!-- Interactive Aurora Background -->
+        <div id="aurora-bg" class="fixed top-0 left-0 w-full h-full z-0 pointer-events-none">
+            <div id="aurora-1" class="absolute w-[60vmax] h-[60vmax] bg-blue-600/30 rounded-full filter blur-3xl opacity-30 transition-transform duration-500 ease-out"></div>
+            <div id="aurora-2" class="absolute w-[60vmax] h-[60vmax] bg-cyan-600/30 rounded-full filter blur-3xl opacity-30 transition-transform duration-500 ease-out"></div>
+        </div>
 
-        <!-- Main Program Details Section -->
-        <section class="p-6 md:p-8 bg-gradient-to-b from-gray-800 to-gray-900 program-section-bg">
-            <h2 class="text-3xl font-bold text-teal-400 mb-8 text-center">Your Journey to Peak Performance Starts Here!</h2>
-            <p class="text-gray-300 text-xl mb-10 text-center max-w-2xl mx-auto">
-                Are you ready to transform your fitness, enhance your athletic performance, or simply embrace a healthier lifestyle, all from the comfort of your home? My online freelance training program offers personalized, expert guidance tailored just for you.
-            </p>
-
-            <div class="grid md:grid-cols-2 gap-8 mb-12">
-                <!-- What You'll Get Card -->
-                <div class="card">
-                    <h3 class="text-2xl font-semibold text-teal-400 mb-5 flex items-center justify-center md:justify-start">
-                        <i class="fas fa-check-double text-teal-500 mr-3"></i> What You'll Get
-                    </h3>
-                    <ul class="list-none space-y-4 text-gray-300">
-                        <li class="flex items-start">
-                            <span class="text-teal-400 mr-2 mt-1">✓</span>
-                            <div>
-                                <strong class="font-medium">Personalized Program Design:</strong> Custom workout plans crafted specifically for your goals, fitness level, and available equipment.
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-teal-400 mr-2 mt-1">✓</span>
-                            <div>
-                                <strong class="font-medium">Virtual Coaching & Feedback:</strong> Regular check-ins and form critiques via video calls to ensure proper technique and maximize results.
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-teal-400 mr-2 mt-1">✓</span>
-                            <div>
-                                <strong class="font-medium">Nutritional Guidance:</strong> Practical advice to complement your training, helping you fuel your body effectively for performance and recovery.
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-teal-400 mr-2 mt-1">✓</span>
-                            <div>
-                                <strong class="font-medium">Progress Tracking & Adjustments:</strong> We'll monitor your progress closely and adapt your plan as you evolve, ensuring continuous improvement.
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-teal-400 mr-2 mt-1">✓</span>
-                            <div>
-                                <strong class="font-medium">Flexible Scheduling:</strong> Train on your own schedule, with programs designed to fit seamlessly into your busy life.
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-teal-400 mr-2 mt-1">✓</span>
-                            <div>
-                                <strong class="font-medium">Ongoing Support:</strong> Direct communication for questions, motivation, and accountability whenever you need it.
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Who Is This For? Card -->
-                <div class="card">
-                    <h3 class="text-2xl font-semibold text-teal-400 mb-5 flex items-center justify-center md:justify-start">
-                        <i class="fas fa-bullseye text-teal-500 mr-3"></i> Who Is This For?
-                    </h3>
-                    <ul class="list-none space-y-4 text-gray-300">
-                        <li class="flex items-start">
-                            <span class="text-teal-400 mr-2 mt-1">🎯</span>
-                            <div>
-                                <strong class="font-medium">Athletes & Sports Enthusiasts:</strong> Looking to improve specific sport performance, strength, agility, and endurance.
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-teal-400 mr-2 mt-1">🎯</span>
-                            <div>
-                                <strong class="font-medium">Fitness Beginners:</strong> Needing expert guidance to start their fitness journey safely and effectively.
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-teal-400 mr-2 mt-1">🎯</span>
-                            <div>
-                                <strong class="font-medium">Busy Professionals:</strong> Seeking efficient and effective training solutions that fit their demanding schedules.
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-teal-400 mr-2 mt-1">🎯</span>
-                            <div>
-                                <strong class="font-medium">Individuals with Specific Goals:</strong> Whether it's weight loss, muscle gain, injury prevention, or general well-being.
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- My Approach Section (Card Style) -->
-            <div class="card mb-12">
-                <h3 class="text-2xl font-semibold text-violet-400 mb-4 text-center">My Approach: Science-Backed & Client-Centric</h3>
-                <p class="text-gray-300 leading-relaxed text-lg text-center">
-                    My coaching philosophy is rooted in evidence-based practices, individualization, and holistic development. I believe in creating sustainable habits and empowering you with the knowledge and tools to maintain your progress long-term. We'll work together to set realistic goals, build a strong foundation, and continually challenge ourselves to reach new heights. Your success and well-being are at the core of everything I do.
+        <div class="relative z-10 max-w-5xl mx-auto p-4 md:p-8 lg:p-12">
+            
+            <!-- Header Section -->
+            <header class="text-center py-24 md:py-32">
+                <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight text-slate-100 bg-clip-text text-transparent bg-gradient-to-br from-white via-slate-200 to-cyan-300 reveal">
+                    ASHOK P K, CSCS
+                </h1>
+                <p class="mt-6 text-xl md:text-2xl font-medium text-slate-300 max-w-2xl mx-auto reveal" style="transition-delay: 100ms;">
+                    Architecting Elite Performance Through Science-Backed, Personalized Coaching.
                 </p>
+                <div class="mt-8 flex flex-col sm:flex-row gap-4 max-w-sm mx-auto reveal" style="transition-delay: 200ms;">
+                     <a href="#packages" class="w-full text-center inline-block font-semibold py-3 px-6 rounded-full shadow-lg transition-all duration-300 ease-in-out bg-gradient-to-r from-blue-500 to-cyan-400 text-white hover:shadow-cyan-500/40 transform-gpu hover:scale-[1.03]">View Packages</a>
+                </div>
+            </header>
+
+            <!-- Main Content Wrapper with lighter background -->
+            <div class="bg-slate-900/70 border border-slate-800 rounded-3xl backdrop-blur-xl p-6 md:p-10 lg:p-16 space-y-20 md:space-y-28">
+                
+                <!-- About Section -->
+                <section class="bg-slate-800/60 border border-slate-700 rounded-2xl p-8 backdrop-blur-sm transition-all duration-300 ease-in-out relative hover:border-cyan-400/60 hover:shadow-2xl hover:shadow-cyan-500/10 text-center reveal">
+                    <h2 class="text-4xl font-bold tracking-tight text-cyan-400 mb-5">Science-Driven Performance</h2>
+                    <p class="leading-relaxed text-lg text-slate-300 max-w-3xl mx-auto">
+                        As a <strong class="font-semibold text-slate-100">Certified Strength and Conditioning Specialist (CSCS)</strong>, I leverage scientific principles and cutting-edge methods to architect bespoke online programs. My mission is to deliver measurable results, helping you build lasting strength, achieve peak performance, and unlock a genuine passion for movement.
+                    </p>
+                </section>
+                
+                <div class="glow-divider reveal"></div>
+
+                <!-- Program Details Section -->
+                <section class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-slate-800/60 border border-slate-700 rounded-2xl p-8 backdrop-blur-sm transition-all duration-300 ease-in-out relative hover:border-cyan-400/60 hover:shadow-2xl hover:shadow-cyan-500/10 reveal">
+                        <h3 class="text-2xl font-bold text-cyan-400 mb-6 flex items-center gap-3"><i class="fas fa-cogs fa-fw"></i>Core Components</h3>
+                        <ul class="space-y-4 text-slate-300">
+                            <li class="flex items-start gap-4"><i class="fas fa-check text-cyan-400 mt-1.5"></i><div><strong class="font-medium text-slate-100">Personalized Program Design</strong></div></li>
+                            <li class="flex items-start gap-4"><i class="fas fa-check text-cyan-400 mt-1.5"></i><div><strong class="font-medium text-slate-100">Virtual Coaching & Bio-Feedback</strong></div></li>
+                            <li class="flex items-start gap-4"><i class="fas fa-check text-cyan-400 mt-1.5"></i><div><strong class="font-medium text-slate-100">Macro-Based Nutritional Guidance</strong></div></li>
+                            <li class="flex items-start gap-4"><i class="fas fa-check text-cyan-400 mt-1.5"></i><div><strong class="font-medium text-slate-100">Data-Driven Performance Tracking</strong></div></li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-slate-800/60 border border-slate-700 rounded-2xl p-8 backdrop-blur-sm transition-all duration-300 ease-in-out relative hover:border-cyan-400/60 hover:shadow-2xl hover:shadow-cyan-500/10 reveal" style="transition-delay: 100ms;">
+                        <h3 class="text-2xl font-bold text-cyan-400 mb-6 flex items-center gap-3"><i class="fas fa-user-astronaut fa-fw"></i>Ideal Candidate</h3>
+                        <ul class="space-y-4 text-slate-300">
+                            <li class="flex items-start gap-4"><i class="fas fa-crosshairs text-cyan-400 mt-1.5"></i><div><strong class="font-medium text-slate-100">Dedicated Athletes</strong></div></li>
+                            <li class="flex items-start gap-4"><i class="fas fa-crosshairs text-cyan-400 mt-1.5"></i><div><strong class="font-medium text-slate-100">Busy Professionals</strong></div></li>
+                            <li class="flex items-start gap-4"><i class="fas fa-crosshairs text-cyan-400 mt-1.5"></i><div><strong class="font-medium text-slate-100">Committed Beginners</strong></div></li>
+                            <li class="flex items-start gap-4"><i class="fas fa-crosshairs text-cyan-400 mt-1.5"></i><div><strong class="font-medium text-slate-100">Goal-Oriented Individuals</strong></div></li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <div class="glow-divider reveal"></div>
+
+                <!-- NEW Pricing Packages Section -->
+                <section id="packages" class="reveal">
+                    <div class="text-center max-w-3xl mx-auto">
+                        <h2 class="text-4xl font-bold tracking-tight text-slate-100 mb-12">Find Your Plan</h2>
+                    </div>
+                    
+                    <div class="grid lg:grid-cols-3 gap-8 items-center">
+                        <!-- Foundation Plan -->
+                        <div class="bg-slate-800 rounded-3xl p-8 text-center flex flex-col h-full">
+                            <h4 class="font-bold text-lg uppercase tracking-wider text-slate-400">Foundation</h4>
+                            <div class="py-8">
+                                <span class="text-5xl font-extrabold text-white">₹4999</span>
+                                <span class="text-base font-medium text-slate-400">/ mo</span>
+                            </div>
+                            <div class="border-t border-slate-700 my-4"></div>
+                            <ul class="space-y-4 text-slate-300 text-left flex-grow">
+                                <li class="flex gap-3"><i class="far fa-check-circle mt-1.5 text-cyan-400"></i><span>Initial Assessment</span></li>
+                                <li class="flex gap-3"><i class="far fa-check-circle mt-1.5 text-cyan-400"></i><span>4-Week Workout Plan</span></li>
+                                <li class="flex gap-3"><i class="far fa-check-circle mt-1.5 text-cyan-400"></i><span>Basic Nutrition Guidelines</span></li>
+                            </ul>
+                            <a href="https://wa.me/919745907012?text=Hi%20Ashok,%20I'm%20interested%20in%20the%20Foundation%20Plan!" target="_blank" class="mt-8 block w-full py-3 px-6 rounded-lg bg-slate-700 text-white font-semibold hover:bg-slate-600 transition-colors">
+                               Buy >
+                            </a>
+                        </div>
+                        
+                        <!-- Performance Plus Plan -->
+                        <div class="bg-blue-600 rounded-3xl p-8 text-center flex flex-col shadow-2xl shadow-blue-500/30">
+                             <h4 class="font-bold text-lg uppercase tracking-wider text-blue-200">Performance+</h4>
+                             <div class="py-8">
+                                <span class="text-6xl font-extrabold text-white">₹6999</span>
+                                <span class="text-base font-medium text-blue-200">/ mo</span>
+                            </div>
+                            <div class="border-t border-blue-500 my-4"></div>
+                            <ul class="space-y-4 text-blue-100 text-left flex-grow">
+                                <li class="flex gap-3"><i class="far fa-check-circle mt-1.5 text-white"></i><span>All Foundation features</span></li>
+                                <li class="flex gap-3"><i class="far fa-check-circle mt-1.5 text-white"></i><span>Tailored Nutrition Strategy</span></li>
+                                <li class="flex gap-3"><i class="far fa-check-circle mt-1.5 text-white"></i><span>Priority Email/Chat Support</span></li>
+                                <li class="flex gap-3"><i class="far fa-check-circle mt-1.5 text-white"></i><span>Video Form Analysis</span></li>
+                            </ul>
+                            <a href="https://wa.me/919745907012?text=Hi%20Ashok,%20I'm%20interested%20in%20the%20Performance%20Plus%20package!" target="_blank" class="mt-8 block w-full py-3 px-6 rounded-lg bg-white text-blue-600 font-semibold hover:bg-blue-100 transition-colors">
+                                Buy >
+                            </a>
+                        </div>
+    
+                        <!-- Elite Transformation Plan -->
+                        <div class="bg-slate-900 border border-slate-700 rounded-3xl p-8 text-center flex flex-col h-full">
+                             <h4 class="font-bold text-lg uppercase tracking-wider text-slate-400">Elite</h4>
+                            <div class="py-8">
+                                <span class="text-5xl font-extrabold text-white">₹9999</span>
+                                <span class="text-base font-medium text-slate-400">/ mo</span>
+                            </div>
+                            <div class="border-t border-slate-700 my-4"></div>
+                            <ul class="space-y-4 text-slate-300 text-left flex-grow">
+                                <li class="flex gap-3"><i class="far fa-check-circle mt-1.5 text-cyan-400"></i><span>All Performance+ features</span></li>
+                                <li class="flex gap-3"><i class="far fa-check-circle mt-1.5 text-cyan-400"></i><span>Detailed Macro/Meal Plan</span></li>
+                                <li class="flex gap-3"><i class="far fa-check-circle mt-1.5 text-cyan-400"></i><span>24/7 WhatsApp Support</span></li>
+                                <li class="flex gap-3"><i class="far fa-check-circle mt-1.5 text-cyan-400"></i><span>Weekly Video Calls</span></li>
+                            </ul>
+                            <a href="https://wa.me/919745907012?text=Hi%20Ashok,%20I'm%20interested%20in%20the%20Elite%20Transformation%20package!" target="_blank" class="mt-8 block w-full py-3 px-6 rounded-lg bg-slate-700 text-white font-semibold hover:bg-slate-600 transition-colors">
+                                Buy >
+                            </a>
+                        </div>
+                    </div>
+                </section>
             </div>
 
-            <h3 class="text-3xl font-bold text-teal-400 mb-8 text-center">Compare Our Training Packages</h3>
+            <!-- Footer / Call to Action -->
+            <footer class="p-10 md:p-16 text-center mt-10 md:mt-16">
+                <div class="relative z-10 reveal">
+                    <h2 class="text-4xl font-bold tracking-tight text-slate-100 mb-4">Ready to Begin Your Transformation?</h2>
+                    <p class="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">Let's connect for a free consultation to discuss your goals and architect your personalized plan.</p>
+                    <a href="https://wa.me/919745907012?text=Hi%20Ashok,%20I'm%20interested%20in%20a%20consultation." target="_blank" class="inline-block bg-gradient-to-r from-blue-500 to-cyan-400 text-white font-bold py-4 px-10 rounded-full text-lg shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transition duration-300 transform-gpu hover:scale-105">
+                        Contact Ashok Today
+                    </a>
+                    <div class="mt-12 text-center text-slate-400 text-sm">
+                        <p>ashokpk2255@gmail.com  •  +91 9745907012  •  Calicut, India</p>
+                        <a href="https://www.linkedin.com/in/ashok-p-k-3a987731a/" target="_blank" class="mt-4 inline-block text-cyan-400 hover:text-cyan-300 font-semibold">
+                            <i class="fab fa-linkedin fa-fw mr-1"></i>View LinkedIn Profile
+                        </a>
+                    </div>
+                </div>
+            </footer>
 
-            <div class="comparison-table-wrapper rounded-lg overflow-hidden bg-gray-800">
-                <table class="comparison-table">
-                    <thead>
-                        <tr>
-                            <th class="rounded-tl-lg bg-gray-900 text-white">Features</th>
-                            <th class="bg-violet-600 text-white relative">
-                                <i class="fas fa-seedling text-3xl mb-2"></i>
-                                <h4 class="text-2xl font-bold">Foundation Plan</h4>
-                            </th>
-                            <th class="most-popular-header text-white">
-                                <i class="fas fa-fire text-3xl mb-2"></i>
-                                <h4 class="text-2xl font-bold">Performance Plus</h4>
-                                <span class="most-popular-badge">MOST POPULAR</span>
-                            </th>
-                            <th class="bg-gray-700 text-white rounded-tr-lg">
-                                <i class="fas fa-trophy text-3xl mb-2"></i>
-                                <h4 class="text-2xl font-bold">Elite Transformation</h4>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="bg-gray-800">
-                            <td>Initial Fitness & Health Assessment</td>
-                            <td><i class="fas fa-check-circle check-icon"></i></td>
-                            <td class="most-popular-col"><i class="fas fa-check-circle check-icon"></i></td>
-                            <td><i class="fas fa-check-circle check-icon"></i></td>
-                        </tr>
-                        <tr class="bg-gray-700">
-                            <td>Personalized Workout Plan</td>
-                            <td><i class="fas fa-check-circle check-icon"></i> (4-weeks)</td>
-                            <td class="most-popular-col"><i class="fas fa-check-circle check-icon"></i> (4-weeks)</td>
-                            <td><i class="fas fa-check-circle check-icon"></i> (Dynamic, 4-weeks)</td>
-                        </tr>
-                        <tr class="bg-gray-800">
-                            <td>Nutrition Guidance</td>
-                            <td><i class="fas fa-check-circle check-icon"></i> (Basic Guidelines)</td>
-                            <td class="most-popular-col"><i class="fas fa-check-circle check-icon"></i> (Tailored Strategy)</td>
-                            <td><i class="fas fa-check-circle check-icon"></i> (Detailed Macro/Meal)</td>
-                        </tr>
-                        <tr class="bg-gray-700">
-                            <td>Priority Support</td>
-                            <td><i class="fas fa-times-circle cross-icon"></i></td>
-                            <td class="most-popular-col"><i class="fas fa-check-circle check-icon"></i> (Email/Chat)</td>
-                            <td><i class="fas fa-check-circle check-icon"></i> (24/7 WhatsApp/Call)</td>
-                        </tr>
-                        <tr class="bg-gray-800">
-                            <td>Form Analysis & Correction</td>
-                            <td><i class="fas fa-times-circle cross-icon"></i></td>
-                            <td class="most-popular-col"><i class="fas fa-check-circle check-icon"></i> (Video Analysis)</td>
-                            <td><i class="fas fa-check-circle check-icon"></i> (Real-time)</td>
-                        </tr>
-                        <tr class="bg-gray-700">
-                            <td>Video Calls</td>
-                            <td><i class="fas fa-times-circle cross-icon"></i></td>
-                            <td class="most-popular-col"><i class="fas fa-times-circle cross-icon"></i></td>
-                            <td><i class="fas fa-check-circle check-icon"></i> (Weekly, 45 mins)</td>
-                        </tr>
-                        <tr class="bg-gray-800">
-                            <td>Complete Performance Analysis</td>
-                            <td><i class="fas fa-times-circle cross-icon"></i></td>
-                            <td class="most-popular-col"><i class="fas fa-times-circle cross-icon"></i></td>
-                            <td><i class="fas fa-check-circle check-icon"></i></td>
-                        </tr>
-                        <tr class="bg-gray-700">
-                            <td>TrainHeroic App Support</td>
-                            <td><i class="fas fa-times-circle cross-icon"></i></td>
-                            <td class="most-popular-col"><i class="fas fa-times-circle cross-icon"></i></td>
-                            <td><i class="fas fa-check-circle check-icon"></i></td>
-                        </tr>
-                        <tr class="price-row">
-                            <td>Investment</td>
-                            <td>₹ 4999 <span class="text-base font-normal">/ month</span></td>
-                            <td class="most-popular-col">₹ 6999 <span class="text-base font-normal">/ month</span></td>
-                            <td>₹ 9999 <span class="text-base font-normal">/ month</span></td>
-                        </tr>
-                        <tr class="button-row">
-                            <td></td>
-                            <td>
-                                <a href="https://wa.me/919745907012?text=Hi%20Ashok,%20I%27m%20interested%20in%20the%20Foundation%20Plan!" target="_blank" class="w-full inline-block button-secondary">Get Started</a>
-                            </td>
-                            <td class="most-popular-col">
-                                <a href="https://wa.me/919745907012?text=Hi%20Ashok,%20I%27m%20interested%20in%20the%20Performance%20Plus%20package!" target="_blank" class="w-full inline-block button-primary">Choose Plan</a>
-                            </td>
-                            <td>
-                                <a href="https://wa.me/919745907012?text=Hi%20Ashok,%20I%27m%20interested%20in%20the%20Elite%20Transformation%20package!" target="_blank" class="w-full inline-block button-secondary">Go Elite</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <p class="text-center text-gray-400 text-sm mt-8">
-                *All plans are highly customizable. Contact me for a personalized consultation and precise pricing.
-            </p>
-
-        </section>
-
-        <!-- Call to Action -->
-        <section class="p-8 md:p-10 bg-gradient-to-tr from-gray-900 to-gray-700 text-white text-center rounded-b-lg">
-            <h2 class="text-3xl font-bold mb-4 drop-shadow-md">Ready to elevate your fitness journey?</h2>
-            <p class="text-xl mb-8 opacity-90">Let's connect for a free consultation to discuss your goals and how I can help you achieve them!</p>
-            <a href="mailto:ashokpk2255@gmail.com" class="inline-block bg-white text-gray-800 font-bold py-3 px-8 rounded-full text-lg shadow-xl hover:bg-gray-100 transition duration-300 transform hover:scale-105">
-                Contact Ashok Today
-            </a>
-            <p class="text-sm mt-6 opacity-80">Or call directly: +919745907012</p>
-        </section>
+        </div>
     </div>
+
+    <script>
+        // Interactive Aurora Background
+        const auroraBg = document.getElementById('aurora-bg');
+        const aurora1 = document.getElementById('aurora-1');
+        const aurora2 = document.getElementById('aurora-2');
+        
+        document.addEventListener('mousemove', (e) => {
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                const { clientX, clientY } = e;
+                const x = clientX / window.innerWidth;
+                const y = clientY / window.innerHeight;
+                
+                aurora1.style.transform = `translate(${x * -50}%, ${y * -50}%)`;
+                aurora2.style.transform = `translate(${x * 50}%, ${y * 50}%)`;
+            }
+        });
+
+        // Scroll-triggered animations
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        revealElements.forEach(el => {
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
